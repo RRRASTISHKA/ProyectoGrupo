@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Materiales implements Serializable {
-    private static ArrayList<String> material = new ArrayList<>();
-    private static ArrayList<Integer> unidad = new ArrayList<>();
+    private static ArrayList<String> desc = new ArrayList<>();
+    private static ArrayList<Integer> ctdad = new ArrayList<>();
     private static ArrayList<Date> fecha = new ArrayList<>(); 
     static transient Scanner sc = new Scanner(System.in); 
     final static String RUTA = new File("").getAbsolutePath() + "\\src\\";
@@ -14,16 +14,16 @@ public class Materiales implements Serializable {
         cargarDatos();
         System.out.println("Dame nombre de material");
         String mat = sc.nextLine();
-        if (material.contains(mat)) {
+        if (desc.contains(mat)) {
             System.out.println("El material ya existe en el almacén. ¿Cuántas unidades deseas agregar?");
             int unidades = sc.nextInt();
-            int index = material.indexOf(mat);
-            unidad.set(index, unidad.get(index) + unidades);
+            int index = desc.indexOf(mat);
+            ctdad.set(index, ctdad.get(index) + unidades);
         } else {
-            material.add(mat);
+            desc.add(mat);
             System.out.println("Cuantas unidades quieres meter?");
             int unidades = sc.nextInt();
-            unidad.add(unidades);
+            ctdad.add(unidades);
             fecha.add(new Date());         }
 
         escribirEnArchivo();
@@ -34,8 +34,8 @@ public class Materiales implements Serializable {
         try {
             FileWriter writer = new FileWriter(RUTA + "materiales.txt");
 
-            for (int i = 0; i < material.size(); i++) {
-                writer.write("Unidades: " + unidad.get(i) + "  Material: " + material.get(i) + "  Fecha: " + fecha.get(i) + "\n");
+            for (int i = 0; i < desc.size(); i++) {
+                writer.write("Unidades: " + ctdad.get(i) + "  Material: " + desc.get(i) + "  Fecha: " + fecha.get(i) + "\n");
             }
             writer.close();
             System.out.println("Datos escritos en el archivo correctamente.");
@@ -52,8 +52,8 @@ public class Materiales implements Serializable {
     
     static void guardarDatos() {
         try (FileWriter writer = new FileWriter(RUTA + "Materiales(Datos).txt")) {
-            for (int i = 0; i < material.size(); i++) {
-                writer.write(material.get(i) + "," + unidad.get(i) + "," + fecha.get(i) + "\n");
+            for (int i = 0; i < desc.size(); i++) {
+                writer.write(desc.get(i) + "," + desc.get(i) + "," + fecha.get(i) + "\n");
             }
         } catch (Exception e) {
             System.out.println("Error al guardar los datos: " + e.getMessage());
@@ -65,8 +65,8 @@ public class Materiales implements Serializable {
             String linea;
             while ((linea = reader.readLine()) != null) {
                 String[] partes = linea.split(",");
-                material.add(partes[0]);
-                unidad.add(Integer.parseInt(partes[1]));
+               desc.add(partes[0]);
+                ctdad.add(Integer.parseInt(partes[1]));
                 fecha.add(new Date(Long.parseLong(partes[2]))); 
             }
         } catch (Exception e) {
@@ -75,19 +75,19 @@ public class Materiales implements Serializable {
     }
 
     public static ArrayList<String> getMaterial() {
-        return new ArrayList<>(material);
+        return new ArrayList<>(desc);
     }
 
     public static void setMaterial(ArrayList<String> newMaterial) {
-         material = new ArrayList<>(newMaterial);
+         desc = new ArrayList<>(newMaterial);
     }
 
     public static ArrayList<Integer> getUnidad() {
-        return unidad;
+        return ctdad;
     }
 
     public static void setUnidad(ArrayList<Integer> unidad) {
-        Materiales.unidad = unidad;
+        Materiales.ctdad = unidad;
     }
 
     public static ArrayList<Date> getFecha() {
