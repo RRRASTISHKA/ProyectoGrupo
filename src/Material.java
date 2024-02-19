@@ -59,6 +59,8 @@ public class Material extends JFrame implements Serializable {
                     ctdad.add(Integer.parseInt(unidades));
                 }
                 textArea.append("Material: " + material + ", Unidades: " + unidades + "\n");
+                tMaterial.setText("");
+                tUnidades.setText("");
             }
         });
         btnAdd.setBounds(414, 53, 89, 23);
@@ -98,6 +100,7 @@ public class Material extends JFrame implements Serializable {
         contentPane.add(btnSave);
 
         textArea = new JTextArea();
+        textArea.setEditable(false);
         textArea.setBounds(58, 124, 342, 132);
         contentPane.add(textArea);
     }
@@ -111,7 +114,7 @@ public class Material extends JFrame implements Serializable {
                 ctdad.add(Integer.parseInt(parts[1]));
             }
         } catch (Exception e) {
-            System.out.println("Error al cargar los datos: " + e.getMessage());
+            
         }
     }
 
@@ -121,7 +124,7 @@ public class Material extends JFrame implements Serializable {
                 writer.write(desc.get(i) + "," + ctdad.get(i) + "\n");
             }
         } catch (Exception e) {
-            System.out.println("Error al guardar los datos: " + e.getMessage());
+           
         }
     }
 
